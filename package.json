@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "node server/index.js",
+    "server": "node server/index.js",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "test:engines": "tsx --env-file=.env src/tests/verifyEngines.ts",
@@ -14,6 +16,9 @@
     "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "lucide-react": "^1.44.0",
     "pdfjs-dist": "^6.3.289",
     "react": "^19.2.8",

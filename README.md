@@ -49,6 +49,7 @@ Embedded assistant powered by Groq LPU fast inference (~150ms latency) that expl
 ## Tech Stack
 
 * **Frontend**: React 19, TypeScript, Vite
+* **Backend**: Express.js, Node.js (Static SPA delivery, API health monitoring, Groq AI inference proxy)
 * **Styling**: Tailored CSS design tokens, modern editorial ivory theme (`#F9F8F5`, `#18181B`, `#FF4F00`)
 * **AI & Document Parsing**: Groq Cloud LPU SDK, `pdfjs-dist` (pure in-browser PDF text extraction)
 * **Visuals & Data**: Canvas Confetti, SVG Interactive Topological DAG Visualizer, Lucide Icons
@@ -75,7 +76,8 @@ npm install
 ### 3. Environment Variables
 Create a `.env` file in the project root:
 ```env
-VITE_GROQ_API_KEY=your_groq_api_key_here
+GROQ_API_KEY_1=your_groq_api_key_here
+GROQ_API_KEY_2=your_fallback_key_here
 ```
 *(Optional: App functions fully with built-in deterministic fallbacks even without an API key)*
 
@@ -85,15 +87,29 @@ npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### 5. Run Verification Engine Tests
+### 5. Run Backend Server Locally
+```bash
+npm run build
+npm start
+```
+Starts the Express server on [http://localhost:3001](http://localhost:3001) serving both backend APIs and the frontend.
+
+### 6. Run Verification Engine Tests
 ```bash
 npm run test:engines
 ```
 
-### 6. Build for Production
-```bash
-npm run build
-```
+### 7. Deploy to Render
+
+This repository includes a `render.yaml` configuration for automatic deployment as a Render Web Service:
+
+1. Connect your repository on Render ([render.com](https://render.com)).
+2. Create a new **Web Service** or use the **Blueprints** feature with `render.yaml`.
+3. Set the build and start commands:
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Health Check Path**: `/api/health`
+4. Add environment variables `GROQ_API_KEY_1` and `GROQ_API_KEY_2` in the Render dashboard.
 
 ---
 
