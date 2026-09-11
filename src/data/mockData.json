@@ -1,0 +1,134 @@
+{
+  "version": "2.5.0-curated",
+  "generatedBy": "Groq LPU Inference (qwen/qwen3.8-27b & openai/gpt-oss-120b)",
+  "dataset": "Career Intelligence Mock Benchmark",
+  "timestamp": "2026-09-11T11:45:00.000Z",
+  "personas": [
+    {
+      "id": "persona-a",
+      "name": "Elena Rostova",
+      "headline": "Frontend Engineer & UI Systems Architect",
+      "targetRole": "Frontend Engineer",
+      "readinessScore": 91,
+      "category": "READY_NOW",
+      "blockersCount": 0,
+      "criticalSkillCoverage": 100,
+      "evidenceStrengthScore": 87,
+      "topSkills": ["react-core", "typescript", "tailwind-css", "javascript-core", "git-vcs"],
+      "artifactsCount": 2,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    },
+    {
+      "id": "persona-b",
+      "name": "Marcus Vance",
+      "headline": "Data Analyst & Business Intelligence Specialist",
+      "targetRole": "Data Analyst",
+      "readinessScore": 79,
+      "category": "REACHABLE",
+      "blockersCount": 1,
+      "criticalSkillCoverage": 83,
+      "evidenceStrengthScore": 68,
+      "topSkills": ["relational-sql", "numpy-pandas", "exploratory-analytics", "math-stats"],
+      "artifactsCount": 2,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    },
+    {
+      "id": "persona-c",
+      "name": "Devin Chen",
+      "headline": "Aspiring Machine Learning & Deep Learning Engineer",
+      "targetRole": "Machine Learning Engineer",
+      "readinessScore": 55,
+      "category": "REACHABLE",
+      "blockersCount": 3,
+      "criticalSkillCoverage": 60,
+      "evidenceStrengthScore": 54,
+      "topSkills": ["deep-learning", "python-core", "math-stats"],
+      "artifactsCount": 2,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    },
+    {
+      "id": "persona-d",
+      "name": "Aisha Patel",
+      "headline": "Cloud Infrastructure & Platform DevOps Specialist",
+      "targetRole": "DevOps / Infrastructure Engineer",
+      "readinessScore": 86,
+      "category": "READY_NOW",
+      "blockersCount": 0,
+      "criticalSkillCoverage": 92,
+      "evidenceStrengthScore": 82,
+      "topSkills": ["docker", "ci-cd", "cloud-infra", "python-core", "git-vcs"],
+      "artifactsCount": 3,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    },
+    {
+      "id": "persona-e",
+      "name": "Jordan Miller",
+      "headline": "Full-Stack Software Engineer & API Architect",
+      "targetRole": "Full-Stack Software Engineer",
+      "readinessScore": 82,
+      "category": "READY_NOW",
+      "blockersCount": 0,
+      "criticalSkillCoverage": 88,
+      "evidenceStrengthScore": 76,
+      "topSkills": ["react-core", "typescript", "backend-apis", "relational-sql", "git-vcs"],
+      "artifactsCount": 3,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    },
+    {
+      "id": "persona-f",
+      "name": "Sarah Kim",
+      "headline": "Systems & Cybersecurity Reliability Engineer",
+      "targetRole": "Security & Systems Engineer",
+      "readinessScore": 64,
+      "category": "REACHABLE",
+      "blockersCount": 2,
+      "criticalSkillCoverage": 70,
+      "evidenceStrengthScore": 62,
+      "topSkills": ["python-core", "cloud-infra", "relational-sql"],
+      "artifactsCount": 2,
+      "auditProvenance": "Deterministic linear evaluation (6-factor composite)"
+    }
+  ],
+  "rolesCatalog": [
+    {
+      "id": "role-frontend-eng",
+      "title": "Frontend Engineer",
+      "category": "Engineering",
+      "salaryRange": "$115,000 - $155,000",
+      "demandGrowthRate": "+22% YoY",
+      "demandScore": 85,
+      "requiredSkillsCount": 6,
+      "prerequisiteDAGPhases": 3
+    },
+    {
+      "id": "role-data-analyst",
+      "title": "Data Analyst",
+      "category": "Data & Analytics",
+      "salaryRange": "$85,000 - $120,000",
+      "demandGrowthRate": "+18% YoY",
+      "demandScore": 80,
+      "requiredSkillsCount": 6,
+      "prerequisiteDAGPhases": 3
+    },
+    {
+      "id": "role-ml-eng",
+      "title": "Machine Learning Engineer",
+      "category": "AI / ML",
+      "salaryRange": "$140,000 - $195,000",
+      "demandGrowthRate": "+34% YoY",
+      "demandScore": 95,
+      "requiredSkillsCount": 7,
+      "prerequisiteDAGPhases": 3
+    },
+    {
+      "id": "role-fullstack-eng",
+      "title": "Full-Stack Software Engineer",
+      "category": "Engineering",
+      "salaryRange": "$125,000 - $165,000",
+      "demandGrowthRate": "+24% YoY",
+      "demandScore": 88,
+      "requiredSkillsCount": 7,
+      "prerequisiteDAGPhases": 3
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+/**
+ * Data Export Utilities
+ * Provides instant 1-click downloads for JSON and CSV mock datasets and evaluation reports.
+ */
+
+import mockDataJson from '../data/mockData.json';
+
+export function downloadJSON(data: any, filename: string = 'mock_career_intelligence.json') {
+  const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
+    JSON.stringify(data, null, 2)
+  )}`;
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute('href', jsonString);
+  downloadAnchor.setAttribute('download', filename);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+export function downloadCSV(csvContent: string, filename: string = 'mock_career_intelligence.csv') {
+  const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute('href', encodedUri);
+  downloadAnchor.setAttribute('download', filename);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+export function downloadStandardMockJSON() {
+  downloadJSON(mockDataJson, 'groq_mock_career_intelligence.json');
+}
+
+export function downloadStandardMockCSV() {
+  const csvData = `Candidate_ID,Candidate_Name,Specialization,Target_Role,Match_Category,Readiness_Score_Pct,Critical_Coverage_Pct,Evidence_Strength_Score,Market_Demand_Index,Blockers_Count,Critical_Blockers,Epistemic_Status,Evaluation_Engine
+persona-a,Elena Rostova,Frontend Architect,Frontend Engineer,READY_NOW,91,100,87,85,0,None,VERIFIED_PROOF,Deterministic 6-Factor Linear Model
+persona-b,Marcus Vance,Business Intelligence,Data Analyst,REACHABLE,79,83,68,80,1,BI Dashboards (Power BI / Tableau),REACHABLE_BRIDGE,Deterministic 6-Factor Linear Model
+persona-c,Devin Chen,Machine Learning,Machine Learning Engineer,REACHABLE,55,60,54,95,3,"Scikit-Learn, Docker, MLOps",REACHABLE_GATED,Deterministic 6-Factor Linear Model
+persona-d,Aisha Patel,Cloud & DevOps,DevOps / Infrastructure Engineer,READY_NOW,86,92,82,90,0,None,VERIFIED_PROOF,Deterministic 6-Factor Linear Model
+persona-e,Jordan Miller,Full-Stack Engineering,Full-Stack Software Engineer,READY_NOW,82,88,76,88,0,None,VERIFIED_PROOF,Deterministic 6-Factor Linear Model
+persona-f,Sarah Kim,Cybersecurity & Systems,Security & Systems Engineer,REACHABLE,64,70,62,84,2,"Kubernetes, Penetration Testing",REACHABLE_GATED,Deterministic 6-Factor Linear Model`;
+
+  downloadCSV(csvData, 'groq_mock_career_intelligence.csv');
+}
