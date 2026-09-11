@@ -1,11 +1,11 @@
-# Career Buddy 🚀
+# Career Buddy
 
 > **Evidence-Aware Technical Career Intelligence & Forensic Auditing Platform**  
 > Deterministic 6-Factor Linear Kernel · Epistemic Competency Engine · Prerequisite DAG Sequencing · Zero-Hallucination Readiness Scoring
 
 ---
 
-## 🌟 Overview
+## Overview
 
 **Career Buddy** is a career intelligence and technical skill auditing platform. Unlike legacy tools that accept self-reported resume claims and generate generic LLM advice, Career Buddy mathematically evaluates what candidates can **actually prove** they are ready for.
 
@@ -13,7 +13,7 @@ It bridges raw messy artifacts (PDF resumes, GitHub repositories, Coursera certi
 
 ---
 
-## ⚡ Core Innovations & Architecture
+## Core Innovations & Architecture
 
 ### 1. Deterministic 6-Factor Career Readiness Kernel
 Scoring is calculated mathematically via a transparent linear equation—not a black-box LLM prompt:
@@ -46,7 +46,7 @@ Embedded assistant powered by Groq LPU fast inference (~150ms latency) that expl
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Frontend**: React 19, TypeScript, Vite
 * **Styling**: Tailored CSS design tokens, modern editorial ivory theme (`#F9F8F5`, `#18181B`, `#FF4F00`)
@@ -55,7 +55,7 @@ Embedded assistant powered by Groq LPU fast inference (~150ms latency) that expl
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 * Node.js (v18+)
@@ -97,5 +97,5 @@ npm run build
 
 ---
 
-## 📄 License
+## License
 MIT License. Built with precision for the modern engineering workforce.
