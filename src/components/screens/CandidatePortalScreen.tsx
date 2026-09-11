@@ -376,11 +376,11 @@ export const CandidatePortalScreen: React.FC = () => {
     let payloadUrl = '';
 
     if (activeTab === 'resume') {
-      if (!submissionContent.trim()) {
-        showToast('warning', 'Missing Resume', 'Please upload a resume document or paste resume text.');
+      if (!submissionContent.trim() && !uploadedFileName && !submissionTitle.trim()) {
+        showToast('warning', 'Missing Resume', 'Please upload a resume document.');
         return;
       }
-      payloadText = submissionContent;
+      payloadText = submissionContent || submissionTitle || uploadedFileName || 'Candidate resume and experience dossier';
       payloadUrl = submissionUrl;
     } else if (activeTab === 'github_repo') {
       const validRepos = githubRepos.filter(r => r.url.trim() || r.title.trim() || r.notes.trim());
@@ -1144,24 +1144,6 @@ export const CandidatePortalScreen: React.FC = () => {
                   className="w-full mt-1 p-3 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl text-xs font-mono focus:ring-2 focus:ring-[#FF4F00] focus:outline-none"
                 />
               </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-[11px] font-mono uppercase font-bold text-[#71717A]">
-                  Extracted Resume Text / Work Experience Body
-                </label>
-                <span className="text-[10px] font-mono text-[#71717A]">
-                  {submissionContent.length} characters
-                </span>
-              </div>
-              <textarea
-                rows={5}
-                value={submissionContent}
-                onChange={(e) => setSubmissionContent(e.target.value)}
-                placeholder="Paste raw resume text, career history, technical achievements, or bullet points..."
-                className="w-full p-3.5 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl text-xs font-mono focus:ring-2 focus:ring-[#FF4F00] focus:outline-none"
-              />
             </div>
           </div>
         )}
