@@ -14,6 +14,7 @@ import { AssessmentScreen } from './components/screens/AssessmentScreen';
 import { ProgressTrajectoryScreen } from './components/screens/ProgressTrajectoryScreen';
 import { CandidatePortalScreen } from './components/screens/CandidatePortalScreen';
 import { GroqAssistantBot } from './components/common/GroqAssistantBot';
+import { BrandLogo } from './components/common/BrandLogo';
 import { CheckCircle2, AlertCircle, Info } from 'lucide-react';
 
 const AppContent: React.FC = () => {
@@ -43,8 +44,8 @@ const AppContent: React.FC = () => {
       {/* 9-Screen Navigation Tab Bar */}
       <Navigation />
 
-      {/* Main Content Viewport */}
-      <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-10 py-6" style={{ maxWidth: '1400px' }}>
+      {/* Main Content Viewport with Generous Spacing */}
+      <main className="flex-1 w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 lg:py-12" style={{ maxWidth: '1400px' }}>
         {renderActiveScreen()}
       </main>
 
@@ -53,8 +54,8 @@ const AppContent: React.FC = () => {
 
       {/* Toast Notification Banner */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 animate-slide-in-right">
-          <div className="paper-card p-4 max-w-md border-stone-300 shadow-xl bg-white flex items-start space-x-3">
+        <div className="fixed bottom-8 right-8 z-50 animate-slide-in-right">
+          <div className="editorial-card p-4 max-w-md bg-white border border-[#E8E4DA] shadow-xl flex items-start space-x-3.5">
             {toast.type === 'success' ? (
               <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
             ) : toast.type === 'warning' ? (
@@ -63,24 +64,26 @@ const AppContent: React.FC = () => {
               <Info className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
             )}
             <div>
-              <div className="text-xs font-bold font-mono text-slate-900">{toast.title}</div>
-              <div className="text-xs text-stone-600 mt-0.5 leading-relaxed">{toast.message}</div>
+              <div className="text-xs font-bold font-mono text-[#14171A]">{toast.title}</div>
+              <div className="text-xs text-[#52525B] mt-0.5 leading-relaxed">{toast.message}</div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Instrument Footer */}
+      {/* Editorial Instrument Footer */}
       <footer
-        className="py-5 text-center text-xs font-mono"
-        style={{ borderTop: '1px solid var(--border-0)', background: 'var(--canvas-warm)', color: 'var(--ink-5)' }}
+        className="py-8 text-xs font-mono"
+        style={{ borderTop: '1px solid var(--border-0)', background: 'var(--canvas)', color: 'var(--ink-4)' }}
       >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span style={{ color: 'var(--ink-4)' }}>CAREER BUDDY</span>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <BrandLogo className="w-4 h-4" />
+            <span className="font-bold tracking-tight text-[#14171A]">CAREER BUDDY</span>
+            <span className="text-[#DDD8CE]">/</span>
+            <span className="text-[11px] text-[#6E7A8A]">Evidence-Aware Technical Career Intelligence</span>
           </div>
-          <div style={{ color: 'var(--ink-5)', fontSize: '10px' }}>
+          <div className="text-[11px] text-[#6E7A8A]">
             Curated ref dataset · Deterministic 6-Factor Scorer · Evidence ≠ Certification
           </div>
         </div>

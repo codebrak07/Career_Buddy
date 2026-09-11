@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useApp } from '../../context/AppContext';
 import { CAREER_ROLES } from '../../data/rolesDatabase';
@@ -7,11 +7,9 @@ import {
   type CandidateSubmissionAnalysis 
 } from '../../services/groqService';
 import { extractTextFromDocument } from '../../services/documentParser';
+import { BrandLogo } from '../common/BrandLogo';
 import {
-  Compass,
-  Activity,
   ChevronRight,
-  Cpu,
   ShieldCheck,
   UserCheck,
   UserPlus,
@@ -26,18 +24,6 @@ import {
   Loader2
 } from 'lucide-react';
 
-const TICKER_ITEMS = [
-  '⚡ GROQ LPU AI · QWEN 27B / GPT-120B ACTIVE',
-  'DETERMINISTIC ENGINE · ACTIVE',
-  '6-FACTOR LINEAR SCORER · OPERATIONAL',
-  'TOPOLOGICAL DAG · SEQUENCING',
-  'BAYESIAN UPDATER · STANDBY',
-  'EVIDENCE CLASSIFIER · TIER-4 READY',
-  '100% EXPLAINABLE · ZERO BLACK-BOX',
-  'LABOUR MARKET DATA · CURATED REF DATASET',
-  'SCORING / DETERMINISTIC',
-  'SEMANTIC EXTRACTION / GROQ AI',
-];
 
 interface PersonaMeta {
   id: string;
@@ -100,7 +86,6 @@ export const Header: React.FC = () => {
     appMode,
     setAppMode,
   } = useApp();
-  const [timeString, setTimeString] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [candidateForm, setCandidateForm] = useState({
     name: '',
@@ -116,12 +101,6 @@ export const Header: React.FC = () => {
   const [isAnalyzingResume, setIsAnalyzingResume] = useState(false);
   const [resumeAnalysis, setResumeAnalysis] = useState<CandidateSubmissionAnalysis | null>(null);
 
-  useEffect(() => {
-    const updateTime = () => setTimeString(new Date().toTimeString().split(' ')[0]);
-    updateTime();
-    const iv = setInterval(updateTime, 1000);
-    return () => clearInterval(iv);
-  }, []);
 
   const activeSubjectMeta = (() => {
     // 1. Check evaluator added candidates
@@ -238,90 +217,37 @@ export const Header: React.FC = () => {
 
   return (
     <header className="instrument-header" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
-      {/* ── Layer 1: Telemetry Ticker ─────────────────────── */}
-      <div
-        className="flex items-center overflow-hidden h-6"
-        style={{ borderBottom: '1px solid var(--border-0)', background: 'var(--canvas-warm)' }}
-      >
-        <div
-          className="shrink-0 px-2.5 h-full flex items-center gap-1 border-r text-[9px] font-mono font-black uppercase tracking-widest"
-          style={{ borderColor: 'var(--border-0)', color: 'var(--flame)', background: 'var(--flame-bg)' }}
-        >
-          <Activity className="w-2.5 h-2.5 animate-pulse" />
-          LIVE
-        </div>
-        <div className="ticker-wrap flex-1 h-full flex items-center">
-          <span
-            className="animate-ticker inline-block text-[9px] font-mono font-medium tracking-wider whitespace-nowrap"
-            style={{ color: 'var(--ink-5)' }}
-          >
-            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-              <span key={i} className="mr-8">
-                <span style={{ color: 'var(--flame)', marginRight: '5px', fontSize: '7px' }}>◆</span>
-                {item}
-              </span>
-            ))}
-          </span>
-        </div>
-        <div
-          className="shrink-0 px-3 h-full flex items-center gap-3 border-l text-[9px] font-mono tracking-wider"
-          style={{ borderColor: 'var(--border-0)', color: 'var(--ink-4)' }}
-        >
-          <span className="flex items-center gap-1 font-bold text-[#FF4F00] bg-[#FFF1EB] px-1.5 py-0.5 rounded border border-[#FFCDB5]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4F00] animate-pulse" />
-            <span>GROQ / LIVE</span>
-          </span>
-          <span className="flex items-center gap-1 font-bold text-[#059669] bg-[#ECFDF5] px-1.5 py-0.5 rounded border border-[#A7F3D0]">
-            <Cpu className="w-2.5 h-2.5" />
-            <span>[DETERMINISTIC]</span>
-          </span>
-          <span className="flex items-center gap-1 font-bold text-[#0284C7] bg-[#F0F9FF] px-1.5 py-0.5 rounded border border-[#BAE6FD]">
-            <ShieldCheck className="w-2.5 h-2.5" />
-            <span>[SCORER_ACTIVE]</span>
-          </span>
-          <span className="font-mono font-bold text-[#18181B]">{timeString}</span>
-        </div>
-      </div>
 
       {/* ── Layer 2: Identity Plate + Persona Instrument ──── */}
       <div
-        className="flex items-center justify-between px-4 sm:px-6 lg:px-10 h-[52px]"
+        className="flex items-center justify-between px-4 sm:px-8 lg:px-12 h-[56px]"
         style={{ borderBottom: '1px solid var(--border-0)', background: 'var(--paper-0)' }}
       >
         {/* Brand Mark */}
         <button
           onClick={() => setActiveScreen('landing')}
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-3 group text-left"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
         >
-          <div
-            className="w-7 h-7 rounded-md flex items-center justify-center group-hover:scale-110 transition-transform duration-200"
-            style={{ background: 'var(--flame)', boxShadow: '0 2px 8px rgba(255,92,26,0.25)' }}
-          >
-            <Compass className="w-3.5 h-3.5 text-white" />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
+            <BrandLogo className="w-8 h-8" />
           </div>
-          <div className="text-left">
-            <div className="flex items-baseline gap-2">
+          <div>
+            <div className="flex items-center gap-2">
               <span
                 style={{
                   fontFamily: 'var(--font-editorial)',
-                  fontWeight: 900,
-                  fontSize: '13px',
+                  fontWeight: 800,
+                  fontSize: '15px',
                   color: 'var(--ink-1)',
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.025em',
                 }}
               >
                 CAREER BUDDY
               </span>
-              <span
-                className="text-[8px] font-mono font-black px-1.5 py-0.5 rounded"
-                style={{ background: 'var(--canvas-warm)', color: 'var(--ink-5)', border: '1px solid var(--border-0)' }}
-              >
-                INSTRUMENT
-              </span>
             </div>
-            <div className="text-[9px] font-mono mt-px" style={{ color: 'var(--ink-5)', letterSpacing: '0.06em' }}>
-              DETERMINISTIC · EXPLAINABLE · EVIDENCE-FIRST
+            <div className="text-[10px] font-mono text-[#6E7A8A] tracking-wider leading-none mt-0.5">
+              Evidence-Aware Career Intelligence
             </div>
           </div>
         </button>
@@ -484,26 +410,50 @@ export const Header: React.FC = () => {
           </div>
         )}
 
-        {/* ── Mode Switcher: Only visible in Evaluator Mode ─────── */}
-        {appMode === 'evaluator' ? (
-          <div className="flex items-center p-1 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl font-mono text-[10px] shadow-xs">
-            <button
-              onClick={() => {
-                setAppMode('candidate');
-                setActiveScreen('candidate_portal');
-              }}
-              className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition text-[#52525B] hover:text-[#18181B] cursor-pointer"
-              title="Switch to Candidate Workspace to submit credentials and take validation tests"
-            >
-              <UserCheck className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">CANDIDATE VIEW</span>
-            </button>
-            <div className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 bg-[#18181B] text-white shadow-xs">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">EVALUATOR</span>
-            </div>
-          </div>
-        ) : null}
+        {/* ── Mode Switcher: Bidirectional Evaluator <-> Candidate Toggle ─────── */}
+        <div className="flex items-center p-1 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl font-mono text-[10px] shadow-xs">
+          {appMode === 'evaluator' ? (
+            <>
+              <button
+                onClick={() => {
+                  setAppMode('candidate');
+                  setActiveScreen('candidate_portal');
+                }}
+                className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition text-[#52525B] hover:text-[#18181B] hover:bg-white/80 cursor-pointer"
+                title="Switch to Candidate Workspace to submit credentials and take validation tests"
+              >
+                <UserCheck className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                <span className="hidden sm:inline">CANDIDATE VIEW</span>
+                <span className="inline sm:hidden">CAND</span>
+              </button>
+              <div className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 bg-[#18181B] text-white shadow-xs">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">EVALUATOR</span>
+                <span className="inline sm:hidden">EVAL</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 bg-[#FF5A1F] text-white shadow-xs">
+                <UserCheck className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">CANDIDATE</span>
+                <span className="inline sm:hidden">CAND</span>
+              </div>
+              <button
+                onClick={() => {
+                  setAppMode('evaluator');
+                  setActiveScreen('landing');
+                }}
+                className="px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition text-[#52525B] hover:text-[#18181B] hover:bg-white/80 cursor-pointer"
+                title="Switch back to Evaluator view for deterministic audits, DAG roadmaps, and scoring traces"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#18181B]" />
+                <span className="hidden sm:inline">EVALUATOR VIEW</span>
+                <span className="inline sm:hidden">EVAL</span>
+              </button>
+            </>
+          )}
+        </div>
 
         {/* ── Active Profile Plate: Tailored for Candidate vs Evaluator ─────── */}
         <div className="flex items-center gap-3">

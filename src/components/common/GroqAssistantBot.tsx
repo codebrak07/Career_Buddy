@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { askGroqAssistant } from '../../services/groqService';
 import { 
-  Bot, 
   X, 
   Send, 
   Loader2
 } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 interface ChatMessage {
   id: string;
@@ -14,6 +14,105 @@ interface ChatMessage {
   text: string;
   timestamp: string;
 }
+
+const renderInlineFormattedText = (rawText: string, isUser: boolean) => {
+  // Matches **bold**, *italic*, `code`
+  const tokenRegex = /(\*\*[^*]+?\*\*|\*[^*]+?\*|`[^`]+?`)/g;
+  const parts = rawText.split(tokenRegex);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      const content = part.slice(2, -2);
+      return (
+        <strong
+          key={index}
+          className={`font-semibold ${isUser ? 'text-white' : 'text-[#14171A]'}`}
+        >
+          {content}
+        </strong>
+      );
+    }
+    if (part.startsWith('*') && part.endsWith('*') && part.length >= 2 && !part.startsWith('**')) {
+      const content = part.slice(1, -1);
+      return <em key={index} className="italic">{content}</em>;
+    }
+    if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+      const content = part.slice(1, -1);
+      return (
+        <code
+          key={index}
+          className={`font-mono text-[11px] px-1.5 py-0.5 rounded border ${
+            isUser
+              ? 'bg-white/15 border-white/20 text-white'
+              : 'bg-[#FAF9F5] border-[#E5E0D8] text-[#FF5A1F]'
+          }`}
+        >
+          {content}
+        </code>
+      );
+    }
+    // Clean up any remaining stray asterisks so literal "**" is never displayed
+    const cleaned = part.replace(/\*\*/g, '');
+    return <span key={index}>{cleaned}</span>;
+  });
+};
+
+export const FormattedChatMessage: React.FC<{ text: string; isUser: boolean }> = ({ text, isUser }) => {
+  const lines = text.split('\n');
+
+  return (
+    <div className="space-y-1.5 leading-relaxed">
+      {lines.map((rawLine, idx) => {
+        const trimmed = rawLine.trim();
+
+        // Empty line creates subtle paragraph vertical separation
+        if (!trimmed) {
+          return <div key={idx} className="h-1.5" />;
+        }
+
+        // Bullet point: "* ", "- ", "• "
+        const bulletMatch = trimmed.match(/^([*\-•+])\s+(.*)$/);
+        if (bulletMatch) {
+          const content = bulletMatch[2];
+          return (
+            <div key={idx} className="flex items-start gap-2 text-left pl-0.5 my-0.5">
+              <span className={`text-xs mt-0.5 shrink-0 select-none ${isUser ? 'text-white/60' : 'text-[#FF5A1F]'}`}>
+                •
+              </span>
+              <div className="flex-1 min-w-0">
+                {renderInlineFormattedText(content, isUser)}
+              </div>
+            </div>
+          );
+        }
+
+        // Numbered list item: "1. ", "2. ", etc.
+        const numberedMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+        if (numberedMatch) {
+          const num = numberedMatch[1];
+          const content = numberedMatch[2];
+          return (
+            <div key={idx} className="flex items-start gap-2 text-left pl-0.5 my-0.5">
+              <span className={`text-[11px] font-mono mt-0.5 font-semibold shrink-0 select-none ${isUser ? 'text-white/70' : 'text-[#FF5A1F]'}`}>
+                {num}.
+              </span>
+              <div className="flex-1 min-w-0">
+                {renderInlineFormattedText(content, isUser)}
+              </div>
+            </div>
+          );
+        }
+
+        // Standard paragraph line
+        return (
+          <p key={idx} className="my-0.5 text-left">
+            {renderInlineFormattedText(rawLine, isUser)}
+          </p>
+        );
+      })}
+    </div>
+  );
+};
 
 const DEFAULT_QUESTIONS = [
   'How do I explore this website?',
@@ -129,20 +228,20 @@ export const GroqAssistantBot: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="px-4 py-2.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl shadow-xl border border-white/20 flex items-center gap-3 transition-all duration-200 hover:scale-[1.02] group"
+          className="px-4 py-2.5 bg-[#14171A] hover:bg-[#25282B] text-white rounded-xl shadow-xl border border-white/15 flex items-center gap-3 transition-all duration-200 hover:scale-[1.02] group cursor-pointer"
         >
           <div className="relative flex items-center justify-center">
-            <Bot className="w-4 h-4 text-[#FF4F00]" />
+            <BrandLogo className="w-5 h-5" />
             <span className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </div>
           <div className="text-left font-mono">
             <div className="text-xs font-bold flex items-center gap-1.5">
               <span>⚡ GROQ / ASSIST</span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#FF4F00] text-white font-bold">
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#FF5A1F] text-white font-bold">
                 {measuredLatency ? `${measuredLatency}ms` : 'LIVE'}
               </span>
             </div>
-            <div className="text-[9px] text-[#A1A1AA]">Ask anything / Platform Guide</div>
+            <div className="text-[9px] text-[#8C8C80]">Ask anything / Platform Guide</div>
           </div>
         </button>
       )}
@@ -150,31 +249,31 @@ export const GroqAssistantBot: React.FC = () => {
       {/* ── Expanded Chat Drawer ────────────────────────── */}
       {isOpen && (
         <div 
-          className="w-[360px] sm:w-[410px] h-[540px] max-h-[85vh] bg-white rounded-2xl border border-[#E7E2D6] shadow-2xl flex flex-col overflow-hidden animate-fade-in-up"
+          className="w-[360px] sm:w-[410px] h-[540px] max-h-[85vh] bg-white rounded-2xl border border-[#E5E0D8] shadow-2xl flex flex-col overflow-hidden animate-fade-in-up"
         >
           {/* Header */}
-          <div className="p-3.5 bg-[#18181B] text-white flex items-center justify-between">
+          <div className="p-3.5 bg-[#14171A] text-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#FF4F00] flex items-center justify-center text-white shadow-xs">
-                <Bot className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center p-1 shadow-xs border border-white/10">
+                <BrandLogo className="w-6 h-6" />
               </div>
               <div>
                 <div className="text-xs font-bold font-mono flex items-center gap-1.5">
                   <span>Career Buddy Assistant</span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-[#FF4F00] font-mono font-bold">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-[#FF5A1F] font-mono font-bold">
                     {measuredLatency ? `GROQ / LIVE · ${measuredLatency}ms` : 'GROQ / LIVE'}
                   </span>
                 </div>
-                <div className="text-[10px] text-[#A1A1AA] truncate max-w-[220px]">
+                <div className="text-[10px] text-[#8C8C80] truncate max-w-[220px]">
                   {userProfile.name} · {selectedRoleMatch.role.title} ({selectedRoleMatch.overallScore}%)
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-1 text-[#A1A1AA]">
+            <div className="flex items-center gap-1 text-[#8C8C80]">
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 hover:text-white rounded transition"
+                className="p-1.5 hover:text-white rounded-lg transition cursor-pointer"
                 title="Close chat"
               >
                 <X className="w-4 h-4" />
@@ -183,13 +282,13 @@ export const GroqAssistantBot: React.FC = () => {
           </div>
 
           {/* Quick Questions Chips */}
-          <div className="p-2.5 bg-[#FAF9F5] border-b border-[#E7E2D6] overflow-x-auto flex gap-1.5 scrollbar-none text-[10px] font-mono">
+          <div className="p-2.5 bg-[#FAF9F5] border-b border-[#E5E0D8] overflow-x-auto flex gap-1.5 scrollbar-none text-[10px] font-mono">
             {DEFAULT_QUESTIONS.map((q, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(q)}
                 disabled={isLoading}
-                className="px-2.5 py-1 rounded-full bg-white hover:bg-[#FFF9F6] text-[#52525B] hover:text-[#FF4F00] border border-[#E7E2D6] hover:border-[#FF4F00]/30 whitespace-nowrap transition"
+                className="px-2.5 py-1 rounded-full bg-white hover:bg-[#FFF9F6] text-[#55554D] hover:text-[#FF5A1F] border border-[#E5E0D8] hover:border-[#FF5A1F]/30 whitespace-nowrap transition cursor-pointer"
               >
                 {q}
               </button>
@@ -197,30 +296,30 @@ export const GroqAssistantBot: React.FC = () => {
           </div>
 
           {/* Chat Messages Body */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3 font-mono text-xs bg-[#FAF9F5]/40">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 font-sans text-[13px] bg-[#FAF9F5]/40">
             {messages.map(msg => (
               <div
                 key={msg.id}
                 className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[88%] p-3 rounded-xl leading-relaxed ${
+                  className={`max-w-[88%] p-3.5 rounded-2xl leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-[#18181B] text-white rounded-br-none'
-                      : 'bg-white border border-[#E7E2D6] text-[#18181B] rounded-bl-none shadow-xs'
+                      ? 'bg-[#14171A] text-white rounded-br-none'
+                      : 'bg-white border border-[#E5E0D8] text-[#2D3136] rounded-bl-none shadow-xs'
                   }`}
                 >
-                  <div className="whitespace-pre-wrap">{msg.text}</div>
+                  <FormattedChatMessage text={msg.text} isUser={msg.sender === 'user'} />
                 </div>
-                <span className="text-[9px] text-[#A1A1AA] mt-0.5 px-1">
+                <span className="text-[9px] font-mono text-[#8C8C80] mt-0.5 px-1">
                   {msg.timestamp}
                 </span>
               </div>
             ))}
 
             {isLoading && (
-              <div className="flex items-center gap-2 p-3 bg-white border border-[#E7E2D6] rounded-xl text-xs text-[#71717A] max-w-[70%]">
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FF4F00]" />
+              <div className="flex items-center gap-2 p-3 bg-white border border-[#E5E0D8] rounded-xl text-xs font-sans text-[#6A6A60] max-w-[70%]">
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FF5A1F]" />
                 <span>Groq LPU reasoning...</span>
               </div>
             )}
@@ -229,7 +328,7 @@ export const GroqAssistantBot: React.FC = () => {
           </div>
 
           {/* Quick Shortcuts Bar */}
-          <div className="px-3 py-1.5 bg-white border-t border-[#E7E2D6] flex items-center justify-between text-[10px] font-mono text-[#71717A]">
+          <div className="px-3.5 py-2 bg-white border-t border-[#E5E0D8] flex items-center justify-between text-[10px] font-mono text-[#6A6A60]">
             <div className="flex items-center gap-2">
               <span>Shortcuts:</span>
               <button
@@ -238,7 +337,7 @@ export const GroqAssistantBot: React.FC = () => {
                   setActiveScreen('candidate_portal');
                   setIsOpen(false);
                 }}
-                className="text-[#FF4F00] hover:underline font-bold"
+                className="text-[#FF5A1F] hover:underline font-semibold cursor-pointer"
               >
                 [Candidate Portal]
               </button>
@@ -247,7 +346,7 @@ export const GroqAssistantBot: React.FC = () => {
                   setActiveScreen('gap_dag');
                   setIsOpen(false);
                 }}
-                className="hover:underline"
+                className="hover:underline cursor-pointer"
               >
                 [Gap DAG]
               </button>
@@ -256,7 +355,7 @@ export const GroqAssistantBot: React.FC = () => {
                   setActiveScreen('careers');
                   setIsOpen(false);
                 }}
-                className="hover:underline"
+                className="hover:underline cursor-pointer"
               >
                 [Careers]
               </button>
@@ -264,7 +363,7 @@ export const GroqAssistantBot: React.FC = () => {
           </div>
 
           {/* Input Footer */}
-          <div className="p-3 bg-white border-t border-[#E7E2D6] flex items-center gap-2">
+          <div className="p-3 bg-white border-t border-[#E5E0D8] flex items-center gap-2">
             <input
               type="text"
               value={inputValue}
@@ -272,13 +371,13 @@ export const GroqAssistantBot: React.FC = () => {
               onKeyDown={handleKeyDown}
               disabled={isLoading}
               placeholder="Ask how to explore, score formula, or validate..."
-              className="flex-1 p-2.5 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl text-xs font-mono focus:ring-2 focus:ring-[#FF4F00] focus:outline-none placeholder-[#A1A1AA]"
+              className="flex-1 p-2.5 bg-[#FAF9F5] border border-[#E5E0D8] rounded-xl text-xs font-sans focus:ring-2 focus:ring-[#FF5A1F] focus:outline-none placeholder-[#8C8C80]"
             />
 
             <button
               onClick={() => handleSendMessage()}
               disabled={isLoading || !inputValue.trim()}
-              className="p-2.5 bg-[#FF4F00] hover:bg-[#E04500] disabled:opacity-50 text-white rounded-xl transition shadow-xs"
+              className="p-2.5 bg-[#FF5A1F] hover:bg-[#E04500] disabled:opacity-50 text-white rounded-xl transition shadow-xs cursor-pointer"
               title="Send message"
             >
               <Send className="w-4 h-4" />

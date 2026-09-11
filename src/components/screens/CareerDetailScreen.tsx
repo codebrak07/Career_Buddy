@@ -10,9 +10,9 @@ import {
   HelpCircle, 
   ArrowRight, 
   GitBranch, 
-  Zap,
-  ShieldCheck,
-  Cpu
+  Zap, 
+  ShieldCheck, 
+  Cpu 
 } from 'lucide-react';
 
 export const CareerDetailScreen: React.FC = () => {
@@ -31,27 +31,27 @@ export const CareerDetailScreen: React.FC = () => {
   const audit = selectedRoleMatch.auditTrace;
 
   return (
-    <div className="space-y-6 py-4">
+    <div className="space-y-10 py-2 max-w-[1360px] mx-auto">
       
       {/* Role Header Banner */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="editorial-card p-8 sm:p-10 bg-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <SectionIndex 
             index="04" 
             label="ROLE SPECIFICATION MATRIX" 
             sublabel="Direct arithmetic evaluation between candidate profile evidence and institutional role requirements."
           />
-          <div className="flex items-center gap-2 font-mono text-xs">
-            <span className={`px-2.5 py-1 rounded-lg border font-bold ${
+          <div className="flex items-center gap-2.5 font-mono text-xs">
+            <span className={`px-3 py-1.5 rounded-xl border font-semibold ${
               isReadyNow 
-                ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
-                : 'bg-amber-50 text-amber-800 border-amber-200'
+                ? 'bg-[#F0FDF4] text-[#059669] border-[#BBF7D0]' 
+                : 'bg-[#FFFBEB] text-[#D97706] border-[#FDE68A]'
             }`}>
-              {isReadyNow ? '● READY NOW CANDIDATE' : '▲ REACHABLE ROADMAP'}
+              {isReadyNow ? '● READY NOW TARGET' : '▲ REACHABLE ROADMAP'}
             </span>
             <button
               onClick={() => setExplainDrawerRoleId(role.id)}
-              className="px-2.5 py-1 rounded-lg border border-[#E7E2D6] bg-[#FAF9F5] text-[#52525B] hover:text-[#FF4F00] flex items-center gap-1 font-mono"
+              className="px-3 py-1.5 rounded-xl border border-[#EAE6DF] bg-[#FAF9F5] text-[#525B67] hover:text-[#FF5A1F] flex items-center gap-1.5 font-mono transition cursor-pointer shadow-xs"
             >
               <HelpCircle className="w-3.5 h-3.5" />
               <span>Full Audit Trace</span>
@@ -59,60 +59,60 @@ export const CareerDetailScreen: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mt-6 pt-6 border-t border-[#E7E2D6]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mt-8 pt-8 border-t border-[#EAE6DF]">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#18181B] tracking-tight font-sans">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[#14171A] tracking-tight font-sans">
               {role.title}
             </h1>
-            <p className="text-xs text-[#52525B] mt-1.5 max-w-2xl leading-relaxed">
+            <p className="text-sm text-[#525B67] mt-2 max-w-2xl leading-relaxed">
               {role.description}
             </p>
           </div>
 
-          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6] font-mono text-right shrink-0">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">CALCULATED READINESS</div>
-            <div className={`text-4xl font-mono font-black ${isReadyNow ? 'text-[#059669]' : 'text-[#D97706]'}`}>
+          <div className="p-6 bg-[#FAF9F5] rounded-2xl border border-[#EAE6DF] font-mono text-right shrink-0">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-bold tracking-wider">CALCULATED READINESS</div>
+            <div className={`text-5xl font-mono font-black mt-1 ${isReadyNow ? 'text-[#059669]' : 'text-[#D97706]'}`}>
               <AnimatedCounter value={selectedRoleMatch.overallScore} suffix="%" />
             </div>
-            <div className="text-[10px] text-[#71717A] mt-0.5">
+            <div className="text-xs text-[#6E7A8A] mt-1">
               100% Deterministic Scorer
             </div>
           </div>
         </div>
 
         {/* Key Benchmark Metrics Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-[#E7E2D6] font-mono text-xs">
-          <div className="p-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">SALARY BENCHMARK</div>
-            <div className="text-sm font-bold text-[#18181B] mt-0.5">{role.salaryRange}</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-[#EAE6DF] font-mono text-xs">
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-semibold tracking-wider">SALARY BENCHMARK</div>
+            <div className="text-base font-bold text-[#14171A] mt-1">{role.salaryRange}</div>
           </div>
-          <div className="p-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">MARKET GROWTH</div>
-            <div className="text-sm font-bold text-[#FF4F00] mt-0.5">{role.demandGrowthRate}</div>
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-semibold tracking-wider">MARKET GROWTH</div>
+            <div className="text-base font-bold text-[#FF5A1F] mt-1">{role.demandGrowthRate}</div>
           </div>
-          <div className="p-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">CRITICAL COVERAGE</div>
-            <div className="text-sm font-bold text-[#18181B] mt-0.5">{selectedRoleMatch.criticalCoveragePercent}%</div>
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-semibold tracking-wider">CRITICAL COVERAGE</div>
+            <div className="text-base font-bold text-[#14171A] mt-1">{selectedRoleMatch.criticalCoveragePercent}%</div>
           </div>
-          <div className="p-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">ACTIVE BLOCKERS</div>
-            <div className={`text-sm font-bold mt-0.5 ${blockers.length > 0 ? 'text-rose-700' : 'text-emerald-700'}`}>
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-semibold tracking-wider">ACTIVE BLOCKERS</div>
+            <div className={`text-base font-bold mt-1 ${blockers.length > 0 ? 'text-rose-700' : 'text-emerald-700'}`}>
               {blockers.length} Unresolved
             </div>
           </div>
         </div>
       </div>
 
-      {/* Why This Career Panel (Inline Full Feature) */}
-      <div className="bento-cell rounded-2xl border border-[#E7E2D6] bg-white shadow-sm overflow-hidden">
-        <div className="p-4 sm:p-5 bg-[#FAF9F5] border-b border-[#E7E2D6] flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#FF4F00]" />
-            <span className="text-xs font-mono font-bold uppercase text-[#18181B]">
+      {/* Why This Career Panel */}
+      <div className="editorial-card rounded-2xl bg-white overflow-hidden">
+        <div className="p-5 sm:p-6 bg-[#FAF9F5] border-b border-[#EAE6DF] flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
+            <span className="text-xs font-mono font-bold uppercase text-[#14171A]">
               Deterministic Audit & Justification
             </span>
           </div>
-          <span className="text-[10px] font-mono text-[#71717A]">
+          <span className="text-xs font-mono text-[#6E7A8A]">
             EVALUATED AT: {audit.timestamp.split('T')[0]}
           </span>
         </div>
@@ -124,17 +124,17 @@ export const CareerDetailScreen: React.FC = () => {
       </div>
 
       {/* Main Matrix: Candidate Competency vs Role Requirements */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+      <div className="editorial-card p-8 sm:p-10 bg-white">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
           <div>
-            <h2 className="text-base font-mono uppercase text-[#18181B] font-bold">
+            <h2 className="text-lg font-mono uppercase text-[#14171A] font-bold">
               Competency Alignment Matrix
             </h2>
-            <div className="text-xs text-[#71717A]">
+            <div className="text-sm text-[#6E7A8A] mt-0.5">
               Direct arithmetic comparison between verified profile evidence and role requirements.
             </div>
           </div>
-          <span className="text-xs font-mono text-[#71717A] bg-[#FAF9F5] px-2.5 py-1 rounded-lg border border-[#E7E2D6] shrink-0 self-start">
+          <span className="text-xs font-mono text-[#6E7A8A] bg-[#FAF9F5] px-3 py-1.5 rounded-xl border border-[#EAE6DF] shrink-0 self-start font-medium">
             {role.requiredSkills.length} Required Dimensions
           </span>
         </div>
@@ -142,16 +142,16 @@ export const CareerDetailScreen: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left font-mono text-xs">
             <thead>
-              <tr className="border-b border-[#E7E2D6] text-[#71717A] uppercase text-[10px]">
-                <th className="py-3 px-3">Required Competency</th>
-                <th className="py-3 px-3">Target Level</th>
-                <th className="py-3 px-3">Your Evidence State</th>
-                <th className="py-3 px-3">Confidence</th>
-                <th className="py-3 px-3">Status</th>
-                <th className="py-3 px-3 text-right">Action</th>
+              <tr className="border-b border-[#EAE6DF] text-[#6E7A8A] uppercase text-[10px]">
+                <th className="py-3.5 px-4 font-semibold">Required Competency</th>
+                <th className="py-3.5 px-4 font-semibold">Target Level</th>
+                <th className="py-3.5 px-4 font-semibold">Your Evidence State</th>
+                <th className="py-3.5 px-4 font-semibold">Confidence</th>
+                <th className="py-3.5 px-4 font-semibold">Status</th>
+                <th className="py-3.5 px-4 text-right font-semibold">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E7E2D6]/60">
+            <tbody className="divide-y divide-[#EAE6DF]/70">
               {role.requiredSkills.map((req) => {
                 const skill = userProfile.skills ? userProfile.skills[req.skillId] : undefined;
                 const meta = SKILLS_TAXONOMY[req.skillId];
@@ -161,72 +161,70 @@ export const CareerDetailScreen: React.FC = () => {
 
                 return (
                   <tr key={req.skillId} className="hover:bg-[#FAF9F5]/70 transition">
-                    <td className="py-3.5 px-3">
-                      <div className="font-bold text-[#18181B]">{meta?.name || req.skillId}</div>
-                      <div className="text-[10px] text-[#71717A] flex items-center gap-1.5 mt-0.5">
-                        <span className={isCritical ? 'text-rose-700 font-bold' : 'text-[#71717A]'}>
+                    <td className="py-4 px-4">
+                      <div className="font-bold text-sm text-[#14171A]">{meta?.name || req.skillId}</div>
+                      <div className="text-[11px] text-[#6E7A8A] flex items-center gap-2 mt-0.5">
+                        <span className={isCritical ? 'text-rose-700 font-bold' : 'text-[#6E7A8A]'}>
                           [{req.importance.toUpperCase()}]
                         </span>
                         <span>Weight: {Math.round(req.weight * 100)}%</span>
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-3">
-                      <span className="px-2 py-0.5 bg-[#FAF9F5] rounded border border-[#E7E2D6] text-[#18181B] font-medium">
+                    <td className="py-4 px-4">
+                      <span className="px-2.5 py-1 bg-[#FAF9F5] rounded-lg border border-[#EAE6DF] text-[#14171A] font-medium text-xs">
                         {req.requiredLevel}
                       </span>
                     </td>
 
-                    <td className="py-3.5 px-3">
-                      {hasSkill ? (
-                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase font-bold ${
-                          skill.state === 'validated' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' :
-                          skill.state === 'evidenced' ? 'bg-amber-50 text-amber-800 border-amber-200' :
-                          skill.state === 'detected' ? 'bg-sky-50 text-sky-800 border-sky-200' :
-                          'bg-stone-100 text-stone-700 border-stone-200'
+                    <td className="py-4 px-4">
+                      <div className="flex items-center gap-2">
+                        <span className={`telemetry-badge text-[10px] ${
+                          skill?.state === 'validated' ? 'telemetry-validated' :
+                          skill?.state === 'evidenced' ? 'telemetry-evidenced' :
+                          skill?.state === 'detected' ? 'telemetry-detected' :
+                          skill ? 'telemetry-claimed' : 'bg-stone-100 text-stone-500'
                         }`}>
-                          {skill.state} ({skill.proficiency})
+                          {skill ? skill.state : 'None'}
                         </span>
-                      ) : (
-                        <span className="text-[#A1A1AA] italic">No evidence found</span>
-                      )}
+                      </div>
                     </td>
 
-                    <td className="py-3.5 px-3">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-16 bg-[#E7E2D6] rounded-full h-1.5 overflow-hidden">
+                    <td className="py-4 px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 bg-[#EAE6DF] rounded-full h-1.5 overflow-hidden">
                           <div
-                            className={`h-1.5 rounded-full transition-all duration-300 ${
+                            className={`h-full rounded-full ${
                               isSatisfied ? 'bg-emerald-500' : hasSkill ? 'bg-amber-500' : 'bg-stone-300'
                             }`}
                             style={{ width: `${skill ? skill.confidence : 0}%` }}
                           />
                         </div>
-                        <span className="font-bold text-[#18181B]">{skill ? `${skill.confidence}%` : '0%'}</span>
+                        <span className="font-bold text-xs text-[#14171A]">{skill ? `${skill.confidence}%` : '0%'}</span>
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-3">
+                    <td className="py-4 px-4">
                       {isSatisfied ? (
-                        <span className="text-emerald-700 flex items-center gap-1 text-[11px] font-bold">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Satisfied
+                        <span className="text-emerald-700 flex items-center gap-1.5 text-xs font-bold">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Satisfied
                         </span>
                       ) : isCritical ? (
-                        <span className="text-rose-700 flex items-center gap-1 text-[11px] font-bold">
-                          <AlertTriangle className="w-3.5 h-3.5 text-rose-600" /> Critical Blocker
+                        <span className="text-rose-700 flex items-center gap-1.5 text-xs font-bold">
+                          <AlertTriangle className="w-4 h-4 text-rose-600" /> Critical Blocker
                         </span>
                       ) : (
-                        <span className="text-amber-800 text-[11px] font-medium">
+                        <span className="text-amber-800 text-xs font-medium">
                           Optional Gap
                         </span>
                       )}
                     </td>
 
-                    <td className="py-3.5 px-3 text-right">
+                    <td className="py-4 px-4 text-right">
                       {!isSatisfied && (
                         <button
                           onClick={() => launchAssessment(req.skillId)}
-                          className="px-2.5 py-1 bg-white hover:bg-orange-50 text-[#FF4F00] border border-[#FF4F00]/40 rounded text-[10px] transition font-bold"
+                          className="px-3 py-1 bg-white hover:bg-[#FFF5F0] text-[#FF5A1F] border border-[#FFD5C4] rounded-lg text-xs font-bold transition cursor-pointer shadow-xs"
                         >
                           Validate
                         </button>
@@ -241,112 +239,112 @@ export const CareerDetailScreen: React.FC = () => {
       </div>
 
       {/* Mathematical Calculation Equation Trace */}
-      <div className="bento-cell p-6 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm font-mono text-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-[#E7E2D6]">
-          <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-[#FF4F00]" />
-            <span className="font-bold text-[#18181B] uppercase tracking-wider text-[11px]">
-              Active Scoring Equation (ADR-002 Formula)
+      <div className="editorial-card p-8 bg-white font-mono text-xs">
+        <div className="flex items-center justify-between pb-4 border-b border-[#EAE6DF]">
+          <div className="flex items-center gap-2.5">
+            <Cpu className="w-4 h-4 text-[#FF5A1F]" />
+            <span className="font-bold text-[#14171A] uppercase tracking-wider text-xs">
+              Active Scoring Equation (ADR-002 Deterministic Kernel)
             </span>
           </div>
-          <span className="text-[10px] text-[#71717A]">
-            DETERMINISTIC KERNEL
+          <span className="text-xs text-[#6E7A8A]">
+            DETERMINISTIC FORMULA
           </span>
         </div>
 
-        <div className="p-3 my-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6] overflow-x-auto text-[11px] text-[#18181B]">
+        <div className="p-4 my-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF] overflow-x-auto text-xs text-[#14171A] leading-relaxed">
           <code>{audit.calculationEquation}</code>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[10px] text-[#71717A] pt-2">
-          <div>Weighted Coverage: <strong className="text-[#18181B]">{audit.intermediateFactors.weightedCoveragePercent}%</strong></div>
-          <div>Weighted Evidence: <strong className="text-[#18181B]">{audit.intermediateFactors.weightedEvidencePercent}%</strong></div>
-          <div>Proficiency Alignment: <strong className="text-[#18181B]">{audit.intermediateFactors.weightedProficiencyPercent}%</strong></div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-[#6E7A8A] pt-2">
+          <div>Weighted Coverage: <strong className="text-[#14171A]">{audit.intermediateFactors.weightedCoveragePercent}%</strong></div>
+          <div>Weighted Evidence: <strong className="text-[#14171A]">{audit.intermediateFactors.weightedEvidencePercent}%</strong></div>
+          <div>Proficiency Alignment: <strong className="text-[#14171A]">{audit.intermediateFactors.weightedProficiencyPercent}%</strong></div>
           <div>Blocker Penalty: <strong className="text-rose-600">-{audit.totalBlockerPenalty}%</strong></div>
         </div>
       </div>
 
-      {/* Next Best Action & Prerequisite Roadmaps */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Next Best Action & Strategic Trajectory */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Next Best Action Card */}
-        <div className="bento-cell p-6 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm flex flex-col justify-between">
+        <div className="editorial-card p-8 sm:p-9 bg-white flex flex-col justify-between">
           <div>
-            <div className="flex items-center space-x-2 text-xs font-mono text-[#FF4F00] uppercase font-bold">
+            <div className="flex items-center space-x-2 text-xs font-mono text-[#FF5A1F] uppercase font-bold">
               <Zap className="w-4 h-4" />
               <span>HIGHEST LEVERAGE NEXT ACTION</span>
             </div>
 
-            <h3 className="text-lg font-bold text-[#18181B] mt-2">
+            <h3 className="text-xl font-bold text-[#14171A] mt-3 font-sans">
               {nextAction.actionTitle}
             </h3>
-            <p className="text-xs text-[#52525B] mt-1 leading-relaxed">
+            <p className="text-sm text-[#525B67] mt-2 leading-relaxed">
               {nextAction.actionDescription}
             </p>
 
-            <div className="mt-4 p-3 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6] text-xs font-mono space-y-1">
+            <div className="mt-6 p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF] text-xs font-mono space-y-2">
               <div className="flex justify-between">
-                <span className="text-[#71717A]">Target Competency:</span>
-                <span className="font-bold text-[#18181B]">{nextAction.skillName}</span>
+                <span className="text-[#6E7A8A]">Target Competency:</span>
+                <span className="font-bold text-[#14171A]">{nextAction.skillName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#71717A]">Estimated Sprints:</span>
-                <span className="font-bold text-[#18181B]">{Math.ceil(nextAction.estimatedHours / 10)} Sprints ({nextAction.estimatedHours} hrs)</span>
+                <span className="text-[#6E7A8A]">Estimated Sprints:</span>
+                <span className="font-bold text-[#14171A]">{Math.ceil(nextAction.estimatedHours / 10)} Sprints ({nextAction.estimatedHours} hrs)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#71717A]">Expected Role Score Boost:</span>
+                <span className="text-[#6E7A8A]">Expected Role Score Boost:</span>
                 <span className="font-bold text-emerald-700">+{nextAction.expectedScoreBoost}%</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[#E7E2D6] flex gap-2">
+          <div className="mt-8 pt-5 border-t border-[#EAE6DF] flex gap-3">
             <button
               onClick={() => setActiveScreen('gap_dag')}
-              className="btn btn-secondary flex-1 justify-center text-xs"
+              className="btn btn-secondary flex-1 justify-center text-xs py-2.5 cursor-pointer"
             >
-              <GitBranch className="w-3.5 h-3.5 text-[#FF4F00]" />
-              Prerequisite DAG
+              <GitBranch className="w-4 h-4 text-[#FF5A1F]" />
+              <span>Prerequisite DAG</span>
             </button>
             <button
               onClick={() => setActiveScreen('learning')}
-              className="btn btn-primary flex-1 justify-center text-xs"
+              className="btn btn-primary flex-1 justify-center text-xs py-2.5 cursor-pointer"
             >
-              Learning Units
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>Learning Units</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
 
         {/* Strategic Trajectory Advice */}
-        <div className="bento-cell p-6 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm flex flex-col justify-between">
+        <div className="editorial-card p-8 sm:p-9 bg-white flex flex-col justify-between">
           <div>
-            <div className="text-xs font-mono text-[#71717A] uppercase font-bold">
+            <div className="text-xs font-mono text-[#6E7A8A] uppercase font-bold">
               EXPLAINABILITY SUMMARY
             </div>
 
-            <h3 className="text-lg font-bold text-[#18181B] mt-2">
+            <h3 className="text-xl font-bold text-[#14171A] mt-3 font-sans">
               Evidence Governance Verdict
             </h3>
 
-            <p className="text-xs text-[#52525B] mt-2 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-[#525B67] mt-3 leading-relaxed whitespace-pre-line">
               {selectedRoleMatch.explainabilitySummary}
             </p>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[#E7E2D6] flex items-center justify-between">
+          <div className="mt-8 pt-5 border-t border-[#EAE6DF] flex items-center justify-between">
             <button
               onClick={() => setActiveScreen('careers')}
-              className="text-xs font-mono text-[#71717A] hover:text-[#18181B] flex items-center gap-1"
+              className="text-xs font-mono text-[#6E7A8A] hover:text-[#14171A] flex items-center gap-1.5 cursor-pointer"
             >
               ← Back to Careers
             </button>
             <button
               onClick={() => setExplainDrawerRoleId(role.id)}
-              className="btn btn-ghost text-xs flex items-center gap-1"
+              className="btn btn-ghost text-xs flex items-center gap-1.5 cursor-pointer"
             >
-              <HelpCircle className="w-3.5 h-3.5" />
-              Audit Trace
+              <HelpCircle className="w-4 h-4" />
+              <span>Audit Trace</span>
             </button>
           </div>
         </div>

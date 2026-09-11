@@ -670,7 +670,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
 
     setUserProfile(updatedProfile);
-    setActiveAssessmentSkillId(null);
 
     const prevRoleScore = selectedRoleMatch.overallScore;
     const newRoleMatch = calculateRoleMatch(updatedProfile, selectedRole);

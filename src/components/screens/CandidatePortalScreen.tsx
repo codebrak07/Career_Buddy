@@ -8,6 +8,7 @@ import {
 } from '../../services/groqService';
 import { extractTextFromDocument } from '../../services/documentParser';
 import { synthesizeSkillFromArtifact } from '../../services/evidenceEngine';
+import { BrandLogo } from '../common/BrandLogo';
 import { 
   UserCheck, 
   FileText, 
@@ -26,6 +27,8 @@ import {
   Link2, 
   FolderGit2, 
   BookOpen, 
+  ShieldCheck,
+  ArrowLeft,
   X 
 } from 'lucide-react';
 
@@ -57,6 +60,7 @@ export const CandidatePortalScreen: React.FC = () => {
     loginCandidate,
     logoutCandidate,
     savedCandidateAccounts,
+    setAppMode,
   } = useApp();
 
   // ── Candidate Sign In & Register State ─────────────────────
@@ -535,7 +539,27 @@ export const CandidatePortalScreen: React.FC = () => {
           {/* Subtle top flame accent bar */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FF4F00] via-[#FF7A30] to-[#FF4F00]" />
           
-          <div className="text-center space-y-2">
+          {/* Top Return to Evaluator View Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-[#F0ECE1]">
+            <button
+              type="button"
+              onClick={() => setAppMode('evaluator')}
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#71717A] hover:text-[#18181B] bg-[#FAF9F5] hover:bg-[#F0ECE1] px-3 py-1.5 rounded-lg border border-[#E7E2D6] transition cursor-pointer"
+              title="Return to Evaluator view"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#18181B]" />
+              <span>Return to Evaluator View</span>
+            </button>
+            <span className="text-[10px] font-mono text-[#8C8C80] uppercase tracking-wider hidden sm:inline">
+              Evaluator Instrument
+            </span>
+          </div>
+
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-[#FFF5F0] border border-[#FFD5C4] flex items-center justify-center mx-auto shadow-xs">
+              <BrandLogo className="w-8 h-8" />
+            </div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#FFF1EB] text-[#FF4F00] border border-[#FFCDB5]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>CANDIDATE ACCESS PORTAL</span>
@@ -912,44 +936,44 @@ export const CandidatePortalScreen: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 py-4">
+    <div className="space-y-8 py-4">
       
       {/* ── Candidate Portal Header Banner & Registration Bar ─────────────────── */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm space-y-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="editorial-card p-6 sm:p-8 lg:p-10 space-y-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[11px] font-bold bg-[#FF4F00]/10 text-[#FF4F00] border border-[#FF4F00]/30">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg font-mono text-[11px] font-semibold bg-[#FF5A1F]/10 text-[#FF5A1F] border border-[#FF5A1F]/20">
                 <UserCheck className="w-3.5 h-3.5" />
                 <span>CANDIDATE WORKSPACE</span>
               </span>
-              <span className="font-mono text-[10px] font-bold text-[#18181B] bg-stone-100 border border-stone-200 px-2 py-0.5 rounded">
+              <span className="font-mono text-[10px] font-semibold text-[#14171A] bg-stone-100 border border-[#E5E0D8] px-2.5 py-1 rounded-lg">
                 LOGGED IN: {candidateUser.email}
               </span>
-              <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+              <span className="font-mono text-[10px] font-semibold text-emerald-800 bg-emerald-50/80 border border-emerald-200/70 px-2.5 py-1 rounded-lg">
                 LIVE INTERACTION ACTIVE
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#18181B]">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#14171A]">
               Welcome, {candidateUser.name}
             </h1>
-            <p className="mt-1 text-xs sm:text-sm text-[#52525B] max-w-2xl leading-relaxed">
+            <p className="mt-2 text-xs sm:text-sm text-[#55554D] max-w-2xl leading-relaxed">
               Upload resumes, GitHub repositories, or Coursera certificates. Groq AI evaluates signal efficiency and generates custom diagnostic tests to prove and elevate your career readiness.
             </p>
           </div>
 
           {/* Quick Metrics & Sign Out Action */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <div className="flex items-center gap-3 p-3.5 bg-[#FAF9F5] border border-[#E7E2D6] rounded-xl font-mono text-xs">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+            <div className="flex items-center gap-4 p-4 bg-[#FAF9F5] border border-[#E5E0D8] rounded-xl font-mono text-xs">
               <div>
-                <div className="text-[9px] text-[#A1A1AA] uppercase font-bold">Target Role</div>
-                <div className="text-sm font-bold text-[#18181B] truncate max-w-[150px]">
+                <div className="text-[9px] text-[#8C8C80] uppercase font-semibold">Target Role</div>
+                <div className="text-sm font-bold text-[#14171A] truncate max-w-[150px]">
                   {role.title}
                 </div>
               </div>
-              <div className="h-8 w-px bg-[#E7E2D6]" />
+              <div className="h-8 w-px bg-[#E5E0D8]" />
               <div>
-                <div className="text-[9px] text-[#A1A1AA] uppercase font-bold">Readiness Fit</div>
+                <div className="text-[9px] text-[#8C8C80] uppercase font-semibold">Readiness Fit</div>
                 <div className={`text-2xl font-black ${selectedRoleMatch.overallScore >= 75 ? 'text-[#059669]' : 'text-[#D97706]'}`}>
                   {selectedRoleMatch.overallScore}%
                 </div>
@@ -957,8 +981,17 @@ export const CandidatePortalScreen: React.FC = () => {
             </div>
 
             <button
+              onClick={() => setAppMode('evaluator')}
+              className="px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-white hover:bg-[#FAF9F5] border border-[#D5D0C8] hover:border-[#18181B] text-[#14171A] flex items-center justify-center gap-1.5 transition shadow-xs cursor-pointer shrink-0"
+              title="Switch back to Evaluator view for audits and deterministic scoring"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#18181B]" />
+              <span>Evaluator View</span>
+            </button>
+
+            <button
               onClick={logoutCandidate}
-              className="px-4 py-2.5 rounded-xl border border-[#E7E2D6] hover:border-[#FCA5A5] bg-white hover:bg-rose-50 text-xs font-mono font-bold text-[#52525B] hover:text-[#DC2626] transition flex items-center justify-center gap-1.5 shadow-xs cursor-pointer shrink-0"
+              className="btn-secondary text-xs flex items-center justify-center gap-1.5 shrink-0"
               title="Sign out of candidate account"
             >
               <span>Sign Out</span>
@@ -968,7 +1001,7 @@ export const CandidatePortalScreen: React.FC = () => {
       </div>
 
       {/* ── Section 1: Multi-Source Credential Intake & Groq Efficiency ── */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm">
+      <div className="editorial-card p-6 sm:p-8 lg:p-10">
         <SectionIndex 
           index="01" 
           label="Credential Intake & Groq AI Efficiency Analysis" 
@@ -976,13 +1009,13 @@ export const CandidatePortalScreen: React.FC = () => {
         />
 
         {/* Source Type Tabs */}
-        <div className="flex flex-wrap gap-2 mt-5">
+        <div className="flex flex-wrap gap-2.5 mt-6">
           <button
             onClick={() => setActiveTab('resume')}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-medium flex items-center gap-2 transition ${
+            className={`px-4 py-2.5 rounded-xl text-xs font-mono transition flex items-center gap-2 ${
               activeTab === 'resume'
-                ? 'bg-[#18181B] text-white font-bold shadow-xs'
-                : 'bg-[#FAF9F5] text-[#52525B] border border-[#E7E2D6] hover:bg-white'
+                ? 'bg-[#14171A] text-white font-semibold shadow-xs'
+                : 'bg-[#FAF9F5] text-[#55554D] border border-[#E5E0D8] hover:bg-white hover:text-[#14171A]'
             }`}
           >
             <FileText className="w-4 h-4" />
@@ -1482,14 +1515,14 @@ export const CandidatePortalScreen: React.FC = () => {
       </div>
 
       {/* ── Section 2: Dynamic Groq AI Validation Test Console ── */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm">
+      <div className="editorial-card p-6 sm:p-8 lg:p-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <SectionIndex 
             index="02" 
             label="Candidate Skill Validation & Test Engine" 
             sublabel="Exclusively available in the Candidate Workspace. Groq AI generates dynamic assessment questions. Passing tests elevates your confidence and boosts role readiness."
           />
-          <div className="font-mono text-xs bg-orange-50 border border-orange-200 text-[#FF4F00] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
+          <div className="font-mono text-xs bg-orange-50/80 border border-[#FF5A1F]/20 text-[#FF5A1F] font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shrink-0 self-start sm:self-auto">
             <Zap className="w-4 h-4" />
             <span>DYNAMIC GROQ TESTS ONLY</span>
           </div>

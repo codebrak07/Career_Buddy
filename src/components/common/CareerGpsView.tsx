@@ -56,20 +56,29 @@ export const CareerGpsView: React.FC<CareerGpsViewProps> = ({ allMatches }) => {
 
       {/* GPS Topology Graph Visualization */}
       <div className="mt-8 relative overflow-x-auto pb-4">
-        <div className="min-w-[700px] flex items-center justify-between relative py-6">
+        <div className="min-w-[700px] flex items-start justify-between relative pt-10 pb-6">
           
-          {/* Connecting Pathway Line */}
-          <div className="absolute top-1/2 left-28 right-28 h-0.5 bg-gradient-to-r from-emerald-400 via-sky-400 to-[#FF4F00] -translate-y-1/2 z-0" />
+          {/* Connecting Pathway Line through node centers */}
+          <div className="absolute top-[72px] left-28 right-28 h-0.5 bg-gradient-to-r from-emerald-400 via-sky-400 to-[#FF5A1F] -translate-y-1/2 z-0" />
 
           {/* Node 1: Origin Candidate Position */}
           <div className="relative z-10 flex flex-col items-center">
-            <div className="w-20 h-20 rounded-2xl bg-emerald-600 text-white flex flex-col items-center justify-center shadow-lg border-2 border-white ring-4 ring-emerald-100">
+            <div className="relative w-16 h-16 rounded-2xl bg-emerald-600 text-white flex flex-col items-center justify-center shadow-md border-2 border-white ring-4 ring-emerald-100">
+              {/* Floating "You Are Here" Pill Badge */}
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <span className="px-3 py-1 rounded-full bg-emerald-700 text-white text-[10px] font-mono font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5 border border-emerald-500/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                  <span>You Are Here</span>
+                </span>
+              </div>
               <MapPin className="w-5 h-5 text-white" />
-              <span className="text-[10px] font-mono font-black uppercase tracking-wider mt-1">YOU ARE HERE</span>
+              <span className="text-[10px] font-mono font-bold mt-0.5">
+                {originMatch ? `${originMatch.overallScore}%` : 'Calibrated'}
+              </span>
             </div>
             <div className="mt-3 text-center">
-              <div className="text-xs font-mono font-bold text-emerald-800 uppercase">CURRENT CAPABILITY</div>
-              <div className="text-sm font-bold text-[#18181B] mt-0.5">
+              <div className="text-[10px] font-mono text-emerald-800 font-bold uppercase tracking-wider">CURRENT CAPABILITY</div>
+              <div className="text-xs font-bold text-[#14171A] mt-0.5 max-w-[150px] truncate">
                 {originMatch ? originMatch.role.title : 'Active Persona'}
               </div>
               <div className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded mt-1 inline-block border border-emerald-200">
@@ -83,14 +92,14 @@ export const CareerGpsView: React.FC<CareerGpsViewProps> = ({ allMatches }) => {
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-16 h-16 rounded-2xl bg-sky-600 text-white flex flex-col items-center justify-center shadow-md border-2 border-white ring-4 ring-sky-100">
                 <Target className="w-5 h-5 text-white" />
-                <span className="text-[9px] font-mono font-bold">{targetMatches[0].overallScore}%</span>
+                <span className="text-[10px] font-mono font-bold mt-0.5">{targetMatches[0].overallScore}%</span>
               </div>
               <div className="mt-3 text-center">
-                <div className="text-[10px] font-mono text-sky-800 font-bold uppercase">NEXT ADJACENCY</div>
-                <div className="text-xs font-bold text-[#18181B] mt-0.5 max-w-[140px] truncate">
+                <div className="text-[10px] font-mono text-sky-800 font-bold uppercase tracking-wider">NEXT ADJACENCY</div>
+                <div className="text-xs font-bold text-[#14171A] mt-0.5 max-w-[140px] truncate">
                   {targetMatches[0].role.title}
                 </div>
-                <div className="text-[10px] font-mono text-[#52525B] mt-1">
+                <div className="text-[10px] font-mono text-[#55554D] mt-1">
                   {targetMatches[0].missingCompetencies.length} Gaps · {targetMatches[0].missingCompetencies.filter(m => m.isBlocker).length} Blockers
                 </div>
                 <button
@@ -98,7 +107,7 @@ export const CareerGpsView: React.FC<CareerGpsViewProps> = ({ allMatches }) => {
                     setSelectedRoleId(targetMatches[0].role.id);
                     setActiveScreen('career_detail');
                   }}
-                  className="mt-1.5 text-[10px] font-mono text-sky-700 font-bold hover:underline flex items-center gap-1 mx-auto"
+                  className="mt-1.5 text-[10px] font-mono text-sky-700 font-bold hover:underline flex items-center gap-1 mx-auto cursor-pointer"
                 >
                   Inspect Matrix <ArrowRight className="w-2.5 h-2.5" />
                 </button>
@@ -109,16 +118,16 @@ export const CareerGpsView: React.FC<CareerGpsViewProps> = ({ allMatches }) => {
           {/* Node 3: Higher Target Career (e.g. ML Engineer or Cloud Architect) */}
           {targetMatches[1] && (
             <div className="relative z-10 flex flex-col items-center">
-              <div className="w-16 h-16 rounded-2xl bg-[#18181B] text-white flex flex-col items-center justify-center shadow-md border-2 border-white ring-4 ring-stone-200">
-                <GitBranch className="w-5 h-5 text-[#FF4F00]" />
-                <span className="text-[9px] font-mono font-bold">{targetMatches[1].overallScore}%</span>
+              <div className="w-16 h-16 rounded-2xl bg-[#14171A] text-white flex flex-col items-center justify-center shadow-md border-2 border-white ring-4 ring-stone-200">
+                <GitBranch className="w-5 h-5 text-[#FF5A1F]" />
+                <span className="text-[10px] font-mono font-bold mt-0.5">{targetMatches[1].overallScore}%</span>
               </div>
               <div className="mt-3 text-center">
-                <div className="text-[10px] font-mono text-stone-700 font-bold uppercase">STRATEGIC GOAL</div>
-                <div className="text-xs font-bold text-[#18181B] mt-0.5 max-w-[140px] truncate">
+                <div className="text-[10px] font-mono text-stone-700 font-bold uppercase tracking-wider">STRATEGIC GOAL</div>
+                <div className="text-xs font-bold text-[#14171A] mt-0.5 max-w-[140px] truncate">
                   {targetMatches[1].role.title}
                 </div>
-                <div className="text-[10px] font-mono text-[#52525B] mt-1">
+                <div className="text-[10px] font-mono text-[#55554D] mt-1">
                   {targetMatches[1].missingCompetencies.length} Gaps · {targetMatches[1].missingCompetencies.filter(m => m.isBlocker).length} Blockers
                 </div>
                 <button
@@ -126,7 +135,7 @@ export const CareerGpsView: React.FC<CareerGpsViewProps> = ({ allMatches }) => {
                     setSelectedRoleId(targetMatches[1].role.id);
                     setActiveScreen('career_detail');
                   }}
-                  className="mt-1.5 text-[10px] font-mono text-[#FF4F00] font-bold hover:underline flex items-center gap-1 mx-auto"
+                  className="mt-1.5 text-[10px] font-mono text-[#FF5A1F] font-bold hover:underline flex items-center gap-1 mx-auto cursor-pointer"
                 >
                   Inspect Matrix <ArrowRight className="w-2.5 h-2.5" />
                 </button>

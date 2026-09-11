@@ -32,67 +32,67 @@ export const SkillIntelligenceScreen: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 py-4">
+    <div className="space-y-8 py-2 max-w-[1360px] mx-auto">
       
       {/* Overview Instrument Banner */}
-      <div className="bento-cell p-6 sm:p-8 rounded-2xl border border-[#E7E2D6] bg-white shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="editorial-card p-8 sm:p-10 bg-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <SectionIndex 
             index="02" 
             label="COMPETENCY GRAPH & CALIBRATION" 
             sublabel="Every competency is scored using calibrated epistemic weights derived from repositories, transcripts, and interactive validation rubrics."
           />
-          <span className="text-xs font-mono text-[#71717A] bg-[#FAF9F5] border border-[#E7E2D6] px-2.5 py-1 rounded-lg shrink-0 self-start md:self-auto font-bold">
+          <span className="text-xs font-mono text-[#6E7A8A] bg-[#FAF9F5] border border-[#EAE6DF] px-3.5 py-1.5 rounded-xl shrink-0 self-start md:self-auto font-bold">
             {allSkills.length} Tracked Nodes
           </span>
         </div>
 
         {/* Global Competency Telemetry Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[#E7E2D6] font-mono">
-          <div className="p-3.5 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#A1A1AA] uppercase font-bold tracking-wider">MEAN CONFIDENCE</div>
-            <div className="text-3xl font-black text-[#18181B] mt-1 font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-[#EAE6DF] font-mono">
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-bold tracking-wider">MEAN CONFIDENCE</div>
+            <div className="text-3xl font-black text-[#14171A] mt-1 font-mono">
               <AnimatedCounter value={avgConfidence} suffix="%" />
             </div>
-            <div className="text-[10px] text-emerald-700 font-medium mt-0.5">Calibrated Signal</div>
+            <div className="text-[11px] text-emerald-700 font-medium mt-0.5">Calibrated Signal</div>
           </div>
 
-          <div className="p-3.5 bg-emerald-50/70 rounded-xl border border-emerald-200">
+          <div className="p-4 bg-[#F0FDF4] rounded-xl border border-[#BBF7D0]">
             <div className="text-[10px] text-emerald-800 uppercase font-bold tracking-wider">VALIDATED MASTERY</div>
             <div className="text-3xl font-black text-emerald-900 mt-1 font-mono">
               <AnimatedCounter value={validated.length} />
             </div>
-            <div className="text-[10px] text-emerald-700">Diagnostic Proof</div>
+            <div className="text-[11px] text-emerald-700 mt-0.5">Diagnostic Proof</div>
           </div>
 
-          <div className="p-3.5 bg-amber-50/70 rounded-xl border border-amber-200">
+          <div className="p-4 bg-[#FFFBEB] rounded-xl border border-[#FDE68A]">
             <div className="text-[10px] text-amber-800 uppercase font-bold tracking-wider">EVIDENCED REPOS</div>
             <div className="text-3xl font-black text-amber-900 mt-1 font-mono">
               <AnimatedCounter value={evidenced.length} />
             </div>
-            <div className="text-[10px] text-amber-700">Code Artifacts</div>
+            <div className="text-[11px] text-amber-700 mt-0.5">Code Artifacts</div>
           </div>
 
-          <div className="p-3.5 bg-[#FAF9F5] rounded-xl border border-[#E7E2D6]">
-            <div className="text-[10px] text-[#71717A] uppercase font-bold tracking-wider">UNVERIFIED / CLAIMED</div>
-            <div className="text-3xl font-black text-[#71717A] mt-1 font-mono">
+          <div className="p-4 bg-[#FAF9F5] rounded-xl border border-[#EAE6DF]">
+            <div className="text-[10px] text-[#6E7A8A] uppercase font-bold tracking-wider">UNVERIFIED / CLAIMED</div>
+            <div className="text-3xl font-black text-[#6E7A8A] mt-1 font-mono">
               <AnimatedCounter value={claimed.length} />
             </div>
-            <div className="text-[10px] text-[#FF4F00] font-medium mt-0.5">Test Recommended</div>
+            <div className="text-[11px] text-[#FF5A1F] font-medium mt-0.5">Test Recommended</div>
           </div>
         </div>
       </div>
 
       {/* Filter Domain Tabs */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2.5">
         {categories.map(cat => (
           <button
             key={cat.id}
             onClick={() => setSelectedCategory(cat.id)}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition ${
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-medium transition cursor-pointer ${
               selectedCategory === cat.id
-                ? 'bg-[#18181B] text-white font-bold shadow-xs'
-                : 'bg-white text-[#52525B] border border-[#E7E2D6] hover:bg-[#FAF9F5]'
+                ? 'bg-[#14171A] text-white font-bold shadow-xs'
+                : 'bg-white text-[#525B67] border border-[#EAE6DF] hover:bg-[#FAF9F5] hover:text-[#14171A]'
             }`}
           >
             {cat.label}
@@ -100,38 +100,38 @@ export const SkillIntelligenceScreen: React.FC = () => {
         ))}
       </div>
 
-      {/* Detailed Skill Cards Bento */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Detailed Skill Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredSkills.map(skill => (
           <div 
             key={skill.id} 
-            className="bento-cell p-5 bg-white border border-[#E7E2D6] rounded-xl flex flex-col justify-between shadow-xs hover:border-[#D4D4D8] transition"
+            className="editorial-card p-6 bg-white flex flex-col justify-between"
           >
             <div>
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-[#18181B] tracking-tight">{skill.name}</h3>
-                  <div className="text-[10px] font-mono text-[#71717A] uppercase mt-0.5">
+                  <h3 className="text-base font-bold text-[#14171A] tracking-tight">{skill.name}</h3>
+                  <div className="text-[11px] font-mono text-[#6E7A8A] uppercase mt-1">
                     {skill.category.replace('_', ' ')} · {skill.proficiency}
                   </div>
                 </div>
-                <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded border ${
-                  skill.state === 'validated' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' :
-                  skill.state === 'evidenced' ? 'bg-amber-50 text-amber-800 border-amber-200' :
-                  skill.state === 'detected' ? 'bg-sky-50 text-sky-800 border-sky-200' :
-                  'bg-stone-100 text-stone-700 border-stone-200'
+                <span className={`telemetry-badge ${
+                  skill.state === 'validated' ? 'telemetry-validated' :
+                  skill.state === 'evidenced' ? 'telemetry-evidenced' :
+                  skill.state === 'detected' ? 'telemetry-detected' :
+                  'telemetry-claimed'
                 }`}>
                   {skill.state}
                 </span>
               </div>
 
               {/* Confidence Progress Meter */}
-              <div className="my-3.5">
-                <div className="flex justify-between text-xs font-mono mb-1.5">
-                  <span className="text-[#71717A]">Competency Signal:</span>
-                  <span className="font-bold text-[#18181B]">{skill.confidence}%</span>
+              <div className="my-5">
+                <div className="flex justify-between text-xs font-mono mb-2">
+                  <span className="text-[#6E7A8A]">Competency Signal:</span>
+                  <span className="font-bold text-[#14171A]">{skill.confidence}%</span>
                 </div>
-                <div className="w-full bg-[#E7E2D6] rounded-full h-1.5 overflow-hidden">
+                <div className="w-full bg-[#EAE6DF] rounded-full h-2 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
                       skill.state === 'validated' ? 'bg-emerald-500' :
@@ -144,10 +144,10 @@ export const SkillIntelligenceScreen: React.FC = () => {
               </div>
 
               {/* Proof Sources */}
-              <div className="space-y-1 mt-3 pt-3 border-t border-[#E7E2D6] text-[11px] font-mono text-[#71717A]">
-                <div className="text-[9px] uppercase font-bold text-[#A1A1AA]">Verifiable Sources:</div>
+              <div className="space-y-1.5 mt-4 pt-4 border-t border-[#EAE6DF] text-xs font-mono text-[#6E7A8A]">
+                <div className="text-[10px] uppercase font-bold text-[#9AA5B5]">Verifiable Sources:</div>
                 {skill.evidenceSources.map((src, i) => (
-                  <div key={i} className="truncate text-[#18181B]">
+                  <div key={i} className="truncate text-[#14171A] text-[11px]">
                     • {src}
                   </div>
                 ))}
@@ -155,18 +155,18 @@ export const SkillIntelligenceScreen: React.FC = () => {
             </div>
 
             {/* Validate Button CTA */}
-            <div className="mt-4 pt-3 border-t border-[#E7E2D6]">
+            <div className="mt-5 pt-4 border-t border-[#EAE6DF]">
               {skill.state === 'validated' ? (
-                <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-700 font-semibold">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-semibold py-1">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <span>Officially Validated</span>
                 </div>
               ) : (
                 <button
                   onClick={() => launchAssessment(skill.id)}
-                  className="w-full py-1.5 bg-[#FFF9F6] hover:bg-[#FFF2EB] text-[#FF4F00] text-xs font-mono font-bold rounded-lg border border-[#FF4F00]/30 flex items-center justify-center gap-1.5 transition"
+                  className="w-full py-2 bg-[#FFF5F0] hover:bg-[#FFEAE0] text-[#FF5A1F] text-xs font-mono font-bold rounded-xl border border-[#FFD5C4] flex items-center justify-center gap-1.5 transition cursor-pointer shadow-xs"
                 >
-                  <Zap className="w-3.5 h-3.5 text-[#FF4F00]" />
+                  <Zap className="w-3.5 h-3.5 text-[#FF5A1F]" />
                   <span>Validate via Assessment (+15%)</span>
                 </button>
               )}
